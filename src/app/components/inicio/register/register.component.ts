@@ -20,6 +20,8 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: [''],
       birthday: ['',Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['',Validators.required]
     }, {validator: this.checkPassword });
   }
 
@@ -35,10 +37,9 @@ export class RegisterComponent {
       fullName: this.register.value.usuario,
       password: this.register.value.password,
       confirmationPassword: this.register.value.confirmPassword,
-      email: "test2@example.com",
-      /* birthday: this.register.get('birthday')?.value.toISOString(), */
+      email: this.register.value.email,
       birthday: this.formatDateToISO(this.register.value.birthday),
-      phone: "55555555",
+      phone: this.register.value.phone,
       gender: 0
     }
 
