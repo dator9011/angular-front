@@ -11,8 +11,10 @@ import { JsonPipe } from '@angular/common';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  [x: string]: any;
   register: FormGroup;
   model: any;
+  genderValue: any = ['Masculino', 'Femenino'];
 
   constructor(private fb: FormBuilder, private accountService: AccountService) {
     this.register = this.fb.group({
@@ -21,9 +23,12 @@ export class RegisterComponent {
       confirmPassword: [''],
       birthday: ['',Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['',Validators.required]
+      phone: ['',Validators.required],
+      gender: ['',Validators.required]
     }, {validator: this.checkPassword });
   }
+
+
 
   registrarUsuario(): void {
   console.log(this.register);
@@ -40,16 +45,21 @@ export class RegisterComponent {
       email: this.register.value.email,
       birthday: this.formatDateToISO(this.register.value.birthday),
       phone: this.register.value.phone,
-      gender: 0
+      gender: this.register.value.gender === 'Masculino' ? 0 : 1
     }
 
     this.accountService.saveUser(account).subscribe((data:any) => {
       console.log(data);
     });
 
-    
-
   }
+
+  changeGender(e: any) {
+    this['gender']?.setValue(e.target.value, {
+      onlySelf: true,
+    });
+  }
+
 
   formatDateToISO(dateElem: Date): string {
     let  d = new Date(dateElem);

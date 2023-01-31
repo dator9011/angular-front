@@ -47,7 +47,22 @@
                     <!-- End Phone -->
                     <!-- Select Gender -->
                     <div class="form-group" style="text-align: start;">
-                        
+                        <div class="d-grid">
+                            <select
+                              class="custom-select mb-3"
+                              (change)="changeGender($event)"
+                              formControlName="gender"
+                            >
+                              <option value="">Elija género</option>
+                              <option *ngFor="let gender of genderValue" [ngValue]="gender">
+                                {{ gender }}
+                              </option>
+                            </select>
+                            <!-- error block -->
+                          <!--   <div class="invalid-feedback" *ngIf="isSubmitted && cityName?.invalid">
+                              <sup>*</sup>Please provide city name
+                            </div> -->
+                        </div>
                     </div>
                     <!-- End Select Gender -->
                     <hr/>
