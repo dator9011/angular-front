@@ -1,5 +1,6 @@
 export class Usuario{
-    nombreUsuario!: string;
+/*     nombreUsuario!: string; */
+    email!: string;
     password!: string;
 }
 

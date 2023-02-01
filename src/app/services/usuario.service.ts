@@ -15,10 +15,14 @@ export class AccountService {
   constructor(private http: HttpClient) { 
     /* this.myAppUrl = environment.endpoint; */
     this.myAppUrl = 'https://localhost:44384';
-    this.myApiUrl = '/api/account/register';
+    this.myApiUrl = '/api/account/';
   }
   //https://localhost:44384/api/account/register -- Post
   saveUser(account: Account): Observable<any>{
-    return this.http.post(this.myAppUrl + this.myApiUrl, account);
+    return this.http.post(this.myAppUrl + this.myApiUrl + 'register', account);
+  }
+
+  loginUser(user: Usuario): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + 'login', user);
   }
 }

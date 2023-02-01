@@ -34,7 +34,7 @@ export class RegisterComponent {
   console.log(this.register);
 
     const usuario: Usuario = {
-      nombreUsuario: this.register.value.usuario,
+      email: this.register.value.email,
       password: this.register.value.password
     }
 
