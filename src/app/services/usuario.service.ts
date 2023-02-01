@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Account, Usuario} from '../models/usuario';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,9 @@ export class AccountService {
   }
 
   loginUser(user: Usuario): Observable<any>{
-    return this.http.post(this.myAppUrl + this.myApiUrl + 'login', user);
+    return this.http.post <any> (this.myAppUrl + this.myApiUrl + 'login', user, {observe: 'response' as 'body'})
+      .pipe(tap(user => {return user;
+      }));
   }
+
 }

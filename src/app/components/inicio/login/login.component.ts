@@ -1,7 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Account, Usuario } from '../../../models/usuario';
+import { Usuario } from '../../../models/usuario';
 import { AccountService } from 'src/app/services/usuario.service';
+import { HttpResponse } from '@angular/common/http';
+import { first } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,9 +30,13 @@ export class LoginComponent implements OnInit {
       }
   
 
-      this.accountService.loginUser(usuario).subscribe((data:any) => {
-        console.log(data);
-      });
+      this.accountService.loginUser(usuario)
+        .pipe(first())
+        .subscribe((data: HttpResponse<any>) => {
+          console.log(data);
+          console.log(data.headers);
+/*           console.log(data.headers.get);
+ */      });
   
     }
 

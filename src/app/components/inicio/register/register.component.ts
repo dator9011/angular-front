@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario, Account } from 'src/app/models/usuario';
 import { AccountService } from 'src/app/services/usuario.service';
-import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { JsonPipe } from '@angular/common';
+/* import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { JsonPipe } from '@angular/common'; */
 
 @Component({
   selector: 'app-register',
