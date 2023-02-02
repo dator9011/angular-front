@@ -18,6 +18,9 @@ import { BienvenidaComponent } from './components/inicio/bienvenida/bienvenida.c
 import { LoginComponent } from './components/inicio/login/login.component';
 import { RegisterComponent } from './components/inicio/register/register.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
+import { ContenidosComponent } from './components/dashboard/contenidos/contenidos.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { LoadingComponent } from './shared/loading/loading.component';
     BienvenidaComponent,
     LoginComponent,
     RegisterComponent,
-    LoadingComponent
+    LoadingComponent,
+    DashboardComponent,
+    NavbarComponent,
+    ContenidosComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { Usuario, Account } from 'src/app/models/usuario';
 import { AccountService } from 'src/app/services/usuario.service';
 import { first } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 /* import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common'; */
 
@@ -21,7 +22,8 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder,
                        private accountService: AccountService,
-                       private toastr: ToastrService) {
+                       private toastr: ToastrService,
+                       private router: Router) {
     this.register = this.fb.group({
       usuario: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]],
@@ -66,12 +68,15 @@ export class RegisterComponent {
       //console.log(data.headers.get('authorization')?.slice(7));
       this.register.reset();
       this.loading = false;
-      this.toastr.success("Registro satisfactorio","Bienvenido");
+      this.toastr.success("Registro satisfactorio","Usuario registrado");
+      this.router.navigate (["/inicio/login"]);
     }),
       error => {
-      // TODO: Error message management per error classification 
-      this.toastr.error("Algo no es correcto", "Error")
-      this.loading = false;
+          console.log(error);
+          
+          this.toastr.error(error.error.message, "Error")
+          this.loading = false;
+          this.register.reset()
     });  
   } else {
     this.toastr.error("Usuario o password incorrecto", "Error");

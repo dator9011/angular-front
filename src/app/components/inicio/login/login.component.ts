@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/services/usuario.service';
 //import { HttpResponse } from '@angular/common/http';
 import { first } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb:FormBuilder, 
               private accountService: AccountService,
-              private toastr: ToastrService){
+              private toastr: ToastrService,
+              private router: Router){
       this.login = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['',Validators.required]
@@ -43,10 +45,11 @@ export class LoginComponent implements OnInit {
           console.log(data.headers.get('authorization')?.slice(7));
           this.loading = false;
           this.toastr.success("Login satisfactorio","Bienvenido");
+          this.router.navigate (["/dashboard"]);
         }),
           error => {
           // TODO: Error message management per error classification 
-          this.toastr.error("Algo no es correcto", "Error")
+          this.toastr.error(error.error.message, "Error")
           this.loading = false;
         });  
       } else {
