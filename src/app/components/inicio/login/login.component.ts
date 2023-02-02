@@ -32,15 +32,25 @@ export class LoginComponent implements OnInit {
         password: this.login.value.password
       }
   
-      if (usuario.email === "test@example.com" && usuario.password === "Lola123*") {
+      if (this.login.status) {
+        this.login.reset();
+        this.loading = true;
         this.accountService.loginUser(usuario)
         .pipe(first())
-        .subscribe((data: HttpResponse<any>) => {
+        .subscribe(
+          (data => {
           console.log(data);
           console.log(data.headers.get('authorization')?.slice(7));
-        });
+          this.loading = false;
+          this.toastr.success("Login satisfactorio","Bienvenido");
+        }),
+          error => {
+          this.toastr.error("Algo no es correcto", "Error")
+          this.loading = false;
+        });  
       } else {
         this.toastr.error("Usuario o password incorrecto", "Error");
+        this.login.reset();
       }
 
 
