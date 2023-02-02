@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../../models/usuario';
 import { AccountService } from 'src/app/services/usuario.service';
-import { HttpResponse } from '@angular/common/http';
+//import { HttpResponse } from '@angular/common/http';
 import { first } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           this.toastr.success("Login satisfactorio","Bienvenido");
         }),
           error => {
+          // TODO: Error message management per error classification 
           this.toastr.error("Algo no es correcto", "Error")
           this.loading = false;
         });  

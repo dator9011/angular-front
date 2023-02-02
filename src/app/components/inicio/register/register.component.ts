@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario, Account } from 'src/app/models/usuario';
 import { AccountService } from 'src/app/services/usuario.service';
+import { first } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 /* import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common'; */
 
@@ -12,11 +14,14 @@ import { JsonPipe } from '@angular/common'; */
 })
 export class RegisterComponent {
   [x: string]: any;
+  loading: boolean = false;
   register: FormGroup;
   model: any;
   genderValue: any = ['Masculino', 'Femenino'];
 
-  constructor(private fb: FormBuilder, private accountService: AccountService) {
+  constructor(private fb: FormBuilder,
+                       private accountService: AccountService,
+                       private toastr: ToastrService) {
     this.register = this.fb.group({
       usuario: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]],
@@ -32,12 +37,12 @@ export class RegisterComponent {
 
   registrarUsuario(): void {
   console.log(this.register);
-
+/* 
     const usuario: Usuario = {
       email: this.register.value.email,
       password: this.register.value.password
     }
-
+ */
     const account: Account = {
       fullName: this.register.value.usuario,
       password: this.register.value.password,
@@ -48,10 +53,30 @@ export class RegisterComponent {
       gender: this.register.value.gender === 'Masculino' ? 0 : 1
     }
 
-    this.accountService.saveUser(account).subscribe((data:any) => {
+    if(this.register.status){
+/*       this.accountService.saveUser(account).subscribe((data:any) => {
       console.log(data);
-    });
-
+    }); */
+    this.loading = true;
+    this.accountService.saveUser(account)
+    .pipe(first())
+    .subscribe(
+      (data => {
+      console.log(data);
+      //console.log(data.headers.get('authorization')?.slice(7));
+      this.register.reset();
+      this.loading = false;
+      this.toastr.success("Registro satisfactorio","Bienvenido");
+    }),
+      error => {
+      // TODO: Error message management per error classification 
+      this.toastr.error("Algo no es correcto", "Error")
+      this.loading = false;
+    });  
+  } else {
+    this.toastr.error("Usuario o password incorrecto", "Error");
+  }
+    
   }
 
   changeGender(e: any) {
