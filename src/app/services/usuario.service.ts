@@ -3,7 +3,6 @@ import { Account, Usuario} from '../models/usuario';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, tap, map } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,4 +27,30 @@ export class AccountService {
       }));
   }
 
+  logOut(): Observable<any>{
+    return this.http.post <any> (this.myAppUrl + this.myApiUrl + 'logout', {observe: 'response' as 'body'});
+  }
+
+  setLocalStorageToken(data: any): void{
+    localStorage.setItem('userToken',data);
+  }
+
+  setLocalStorageUserName(data: any): void{
+    localStorage.setItem('userName',data);
+  }
+
+  getUserToken(): string{
+      return localStorage.getItem('userToken')!;
+  }
+
+  getUserName(): string{
+    return localStorage.getItem('userName')!;
+  }
+
+  removeLocalStorage(): void{
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userName');
+  }
+
+  
 }

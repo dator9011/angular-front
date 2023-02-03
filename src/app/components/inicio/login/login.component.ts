@@ -42,13 +42,14 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (data => {
           console.log(data);
-          console.log(data.headers.get('authorization')?.slice(7));
+          //console.log(data.headers.get('authorization')?.slice(7));
           this.loading = false;
+          this.accountService.setLocalStorageToken(data.headers.get('authorization')?.slice(7));
+          this.accountService.setLocalStorageUserName(data.body.result.fullName);
           this.toastr.success("Login satisfactorio","Bienvenido");
           this.router.navigate (["/dashboard"]);
         }),
           error => {
-          // TODO: Error message management per error classification 
           this.toastr.error(error.error.message, "Error")
           this.loading = false;
         });  
@@ -60,6 +61,8 @@ export class LoginComponent implements OnInit {
 
   
     }
+
+
 
 
   ngOnInit(): void {
