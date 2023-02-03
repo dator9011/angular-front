@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account, Usuario} from '../models/usuario';
+import { Account, ChangePasswordData, Usuario} from '../models/usuario';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, tap, map } from 'rxjs';
@@ -25,6 +25,10 @@ export class AccountService {
     return this.http.post <any> (this.myAppUrl + this.myApiUrl + 'login', user, {observe: 'response' as 'body'})
       .pipe(tap(user => {return user;
       }));
+  }
+
+  changePassword(changePasswordInfo: ChangePasswordData): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + 'change-password', changePasswordInfo);
   }
 
   logOut(): Observable<any>{

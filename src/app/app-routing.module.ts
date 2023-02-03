@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/inicio/register/register.compone
 import { InicioComponent } from './components/inicio/inicio.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContenidosComponent } from './components/dashboard/contenidos/contenidos.component';
+import { ChangePasswordComponent } from './components/dashboard/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent},
   ]},
   {path: 'dashboard', component: DashboardComponent, children:[
-    {path: '', component: ContenidosComponent}
+    {path: '', component: ContenidosComponent},
+    {path: 'change-password', component: ChangePasswordComponent}
   ]},
   { path: '**', redirectTo: '/inicio', pathMatch: 'full'}
 ];

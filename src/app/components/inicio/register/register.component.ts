@@ -74,7 +74,7 @@ export class RegisterComponent {
       error => {
           console.log(error);
           
-          this.toastr.error(error.error.message, "Error")
+          this.toastr.error(error.error.errors[0], "Error")
           this.loading = false;
           this.register.reset()
     });  

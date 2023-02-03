@@ -24,6 +24,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { ContenidosComponent } from './components/dashboard/contenidos/contenidos.component';
+import { ChangePasswordComponent } from './components/dashboard/change-password/change-password.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ContenidosComponent } from './components/dashboard/contenidos/contenido
     LoadingComponent,
     DashboardComponent,
     NavbarComponent,
-    ContenidosComponent
+    ContenidosComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

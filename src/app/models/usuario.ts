@@ -13,3 +13,9 @@ export class Account{
     phone!: string;
     gender!: number ;
 }
+
+export class ChangePasswordData{
+        oldPassword!: string;
+        newPassword!: string;
+        confirmPassword!: string;
+    }
